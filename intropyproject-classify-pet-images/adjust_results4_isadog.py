@@ -31,12 +31,11 @@
 #           label isn't a dog.
 #
 ##
-# TODO 4: Define adjust_results4_isadog function below, specifically replace the None
+# DONE 4: Define adjust_results4_isadog function below, specifically replace the None
 #       below by the function definition of the adjust_results4_isadog function. 
 #       Notice that this function doesn't return anything because the 
 #       results_dic dictionary that is passed into the function is a mutable 
 #       data type so no return is needed.
-# 
 def adjust_results4_isadog(results_dic, dogfile):
     """
     Adjusts the results dictionary to determine if classifier correctly 
@@ -66,5 +65,23 @@ def adjust_results4_isadog(results_dic, dogfile):
                maltese) (string - indicates text file's filename)
     Returns:
            None - results_dic is mutable data type so no return needed.
-    """           
-    None
+    """
+    dog_names = {}
+    with open(dogfile) as file:
+        for line in file:
+            for dog_name in line.lower().split(","):
+                dog_names[dog_name.strip()] = 1
+    
+    for image in results_dic.keys():
+        image_results = results_dic[image]
+
+        if image_results[0] in dog_names:
+            image_results.append(1)
+        else:
+            image_results.append(0)
+
+        image_results.append(0)
+        for classifier_label in image_results[1].split(","):
+            if classifier_label.strip() in dog_names:
+                image_results[4] = 1
+                break
