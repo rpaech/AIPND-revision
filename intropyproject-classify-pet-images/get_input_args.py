@@ -17,10 +17,9 @@
 # Imports python modules
 import argparse
 
-# TODO 1: Define get_input_args function below please be certain to replace None
-#       in the return statement with parser.parse_args() parsed argument 
+# DONE 1: Define get_input_args function below please be certain to replace None
+#       in the return statement with parser.parse_args() parsed argument
 #       collection that you created with this function
-# 
 def get_input_args():
     """
     Retrieves and parses the 3 command line arguments provided by the user when
@@ -29,15 +28,22 @@ def get_input_args():
     the user fails to provide some or all of the 3 arguments, then the default 
     values are used for the missing arguments. 
     Command Line Arguments:
-      1. Image Folder as --dir with default value 'pet_images'
-      2. CNN Model Architecture as --arch with default value 'vgg'
-      3. Text File with Dog Names as --dogfile with default value 'dognames.txt'
+    1. Image Folder as --dir with default value 'pet_images'
+    2. CNN Model Architecture as --arch with default value 'vgg'
+    3. Text File with Dog Names as --dogfile with default value 'dognames.txt'
     This function returns these arguments as an ArgumentParser object.
     Parameters:
-     None - simply using argparse module to create & store command line arguments
+    None - simply using argparse module to create & store command line arguments
     Returns:
-     parse_args() -data structure that stores the command line arguments object  
+    parse_args() -data structure that stores the command line arguments object  
     """
-    # Replace None with parser.parse_args() parsed argument collection that 
-    # you created with this function 
-    return None
+    arg_parser = argparse.ArgumentParser(description=
+            "Classifies pet images using a pretrained CNN model, compares these "
+            "classifications to the true identity of the pets in the images, and "
+            "summarizes how well the CNN performed on the image classification task.")
+
+    arg_parser.add_argument("--dir", default="pet_images", help="Image folder")
+    arg_parser.add_argument("--arch", default="vgg", help="CNN model architecture")
+    arg_parser.add_argument("--dogfile", default="dognames.txt", help="Text file with dog names")
+
+    return arg_parser.parse_args()
