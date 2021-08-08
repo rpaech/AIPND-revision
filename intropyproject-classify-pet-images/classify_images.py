@@ -22,8 +22,9 @@
 ##
 # Imports classifier function for using CNN to classify images 
 from classifier import classifier 
+from os import path
 
-# TODO 3: Define classify_images function below, specifically replace the None
+# DONE 3: Define classify_images function below, specifically replace the None
 #       below by the function definition of the classify_images function. 
 #       Notice that this function doesn't return anything because the 
 #       results_dic dictionary that is passed into the function is a mutable 
@@ -65,4 +66,15 @@ def classify_images(images_dir, results_dic, model):
      Returns:
            None - results_dic is mutable data type so no return needed.         
     """
-    None 
+    for image_filename in results_dic.keys():
+
+        image_path = path.join(images_dir, image_filename)
+
+        classifier_result = classifier(image_path, model).lower()
+
+        dic_entry = results_dic[image_filename]
+        dic_entry.append(classifier_result)
+        if dic_entry[0] in classifier_result:
+            dic_entry.append(1)
+        else:
+            dic_entry.append(0)
