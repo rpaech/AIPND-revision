@@ -1,0 +1,40 @@
+
+     MATCH:
+
+ NOT A MATCH:
+
+     Cardboard_3D_Horse_01.jpg: 
+Real:         cardboard 3d horse   Classifier:                    triceratops
+
+Common_Brushtail_Possum_01.jpg: 
+Real:    common brushtail possum   Classifier: grey fox, gray fox, urocyon cinereoargenteus
+
+                    Dog_01.jpg: 
+Real:                        dog   Classifier:                       leonberg
+
+                    Dog_02.jpg: 
+Real:                        dog   Classifier:                       leonberg
+
+            dog_leonberger.jpg: 
+Real:                        dog   Classifier:                       leonberg
+
+# Total Images 5 # Matches: 0 # NOT Matches: 5
+
+------------
+Test results for the vgg classifier:
+>>> There are 5 images. Of these 3 are of dogs and 2 are not of dogs.
+>>> Images matched correctly: 0 (0.0%)
+>>> Images of dogs matched correctly: 3 (100.0%)
+>>> Images of dog breeds matched correctly: 0 (0.0%)
+>>> Images not of dogs matched correctly: 2 (100.0%)
+
+The classifier incorrectly matched the following images as dogs:
+>>> Nil.
+
+The classifier correctly matched the following images as a dog but incorrectly matched its breed:
+>>> The 'dog' was incorrectly classified as 'leonberg'.
+>>> The 'dog' was incorrectly classified as 'leonberg'.
+>>> The 'dog' was incorrectly classified as 'leonberg'.
+------------
+
+** Total Elapsed Runtime: 0:0:0
