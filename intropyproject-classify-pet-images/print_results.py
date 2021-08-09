@@ -26,11 +26,14 @@
 #         This function does not output anything other than printing a summary
 #         of the final results.
 ##
-# TODO 6: Define print_results function below, specifically replace the None
+# DONE 6: Define print_results function below, specifically replace the None
 #       below by the function definition of the print_results function. 
 #       Notice that this function doesn't to return anything because it  
 #       prints a summary of the results using results_dic and results_stats_dic
 # 
+
+from results_list_indices import *
+
 def print_results(results_dic, results_stats_dic, model, 
                   print_incorrect_dogs = False, print_incorrect_breed = False):
     """
@@ -61,6 +64,59 @@ def print_results(results_dic, results_stats_dic, model,
                               False doesn't print anything(default) (bool) 
     Returns:
            None - simply printing results.
-    """    
-    None
-                
+    """
+    
+    print()
+    print("------------")
+    print("Test results for the {} classifier:".format(model))
+    print(">>> There are {} images. Of these {} are of dogs and {} are not of dogs.".format(
+          results_stats_dic["n_images"], 
+          results_stats_dic["n_dogs_img"], 
+          results_stats_dic["n_notdogs_img"]))
+    print(">>> Images matched correctly: {} ({:.1f}%)".format(
+          results_stats_dic["n_match"],
+          results_stats_dic["pct_match"]))
+    print(">>> Images of dogs matched correctly: {} ({:.1f}%)".format(
+          results_stats_dic["n_correct_dogs"], 
+          results_stats_dic["pct_correct_dogs"]))
+    print(">>> Images of dog breeds matched correctly: {} ({:.1f}%)".format(
+          results_stats_dic["n_correct_breed"], 
+          results_stats_dic["pct_correct_breed"]))
+    print(">>> Images not of dogs matched correctly: {} ({:.1f}%)".format(
+          results_stats_dic["n_correct_notdogs"], 
+          results_stats_dic["pct_correct_notdogs"]))
+    
+    incorrect_dog_matches = []
+    incorrect_breed_matches = []
+    for key in results_dic.keys():
+        image_results = results_dic[key]
+
+        if image_results[IMAGE_LABEL_IS_A_DOG_IDX]:
+
+            if not image_results[CLASSIFIER_LABEL_IS_A_DOG_IDX]:
+                incorrect_dog_matches.append(
+                    (image_results[IMAGE_LABEL_IDX], image_results[CLASSIFIER_LABEL_IDX]))
+
+            if not image_results[IMAGE_CLASSIFIER_LABELS_MATCH_IDX]:
+                incorrect_breed_matches.append(
+                    (image_results[IMAGE_LABEL_IDX], image_results[CLASSIFIER_LABEL_IDX]))
+
+    if print_incorrect_dogs:
+        print()
+        print("The classifier incorrectly matched the following images as dogs:")
+        if len(incorrect_dog_matches) > 0:
+            for image_label, classifier_label in incorrect_dog_matches:
+                print(">>> The '{}' was classified as '{}'.".format(image_label, classifier_label))
+        else:
+            print(">>> Nil.")
+
+    if print_incorrect_breed:
+        print()
+        print("The classifier correctly matched the following images as a dog but incorrectly matched its breed:")
+        if len(incorrect_breed_matches) > 0:
+            for image_label, classifier_label in incorrect_breed_matches:
+                print(">>> The '{}' was incorrectly classified as '{}'.".format(image_label, classifier_label))
+        else:
+            print("Nil.")
+    
+    print("------------")
