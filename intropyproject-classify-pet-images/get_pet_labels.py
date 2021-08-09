@@ -18,7 +18,6 @@
 ##
 # Imports python modules
 from os import listdir
-import re
 
 # DONE 2: Define get_pet_labels function below please be certain to replace None
 #       in the return statement with results_dic dictionary that you create 
@@ -44,6 +43,7 @@ def get_pet_labels(image_dir):
     results_dic = {}
 
     for file in listdir(image_dir):
+        # Insert image label at IMAGE_LABEL_IDX
         results_dic[file] = [" ".join(file.lower().split("_")[0:-1]).strip()]
 
     return results_dic
